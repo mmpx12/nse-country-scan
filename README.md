@@ -17,6 +17,7 @@ Argument are:
 
 - country: "Code of the country in uppercase">
 - max_ip: "Number of ip range to scan"
+- newtargets "Without nmap can't add target to queue"
 
 ```bash
 nmap --script country_scan --script-args 'country=LU, max_ip=2'
@@ -27,7 +28,7 @@ nmap --script country_scan --script-args 'country=LU, max_ip=2'
 Other ip, script or nmap argument can be pass like:
 
 ```bash
-nmap -sn --script country_scan --script-args 'country=LU, max_ip=2' 1.1.1.1
+nmap -sn --script country_scan --script-args 'country=LU, max_ip=2, newtargets' 1.1.1.1
 ```
 
 

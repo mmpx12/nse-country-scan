@@ -8,10 +8,11 @@ description = [[
 
 local nmap = require "nmap"
 local stdnse = require "stdnse"
+local target = require "target"
 local random_country = false
 local country = stdnse.get_script_args("country_scan.country")
 local max_ip = stdnse.get_script_args("country_scan.max_ip")
-
+local newtargets = stdnse.get_script_args("country_scan.newtargets")
 local function isempty(v)
   return v == nil or v == ''
 end
@@ -41,6 +42,10 @@ end
 file:close()
 
 prerule = function()
+  if (newtargets ~= 1) then
+      print("\n[NSE country scan] error: to add targets run with --script-args 'newtargets'\n")
+      return false
+  end
   print("\n ------------------")
   print("| NSE country scan |")
   print(" ------------------")
@@ -54,7 +59,7 @@ prerule = function()
   print("\n")
   local file = io.open(country_path, "r")
   for ip in file:lines() do
-    nmap.add_targets(ip)
+    target.add(ip)
     if i == tonumber(max_ip) then
       break
     else
